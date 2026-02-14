@@ -67,7 +67,7 @@ export default function Hero() {
             {/* Background Spline Scene - optimized for performance */}
             <div
                 className="absolute inset-0 z-0 will-change-transform overflow-hidden"
-                style={{ transform: "scale(1.255) translateY(-6%) translateX(-2%)", transformOrigin: "center" }}
+                style={{ transform: "scale(1.28) translateY(-6%) translateX(-2%)", transformOrigin: "center" }}
             >
                 <Spline
                     scene="https://prod.spline.design/WtVbd7y5OXJvwloF/scene.splinecode"

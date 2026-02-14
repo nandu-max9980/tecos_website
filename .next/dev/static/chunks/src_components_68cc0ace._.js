@@ -38,11 +38,11 @@ _c = Spline;
 function Hero() {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(8);
-    if ($[0] !== "9ec687fc68ecd1c59783a262d7607661fc4a8d6a93781bf71bdb52d0bf5078c8") {
+    if ($[0] !== "6cef715c04d8b8c73549dd1c8783d57f01c39f92f6d09864db38909652e78f7c") {
         for(let $i = 0; $i < 8; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "9ec687fc68ecd1c59783a262d7607661fc4a8d6a93781bf71bdb52d0bf5078c8";
+        $[0] = "6cef715c04d8b8c73549dd1c8783d57f01c39f92f6d09864db38909652e78f7c";
     }
     const comp = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const titlePart1 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -100,7 +100,7 @@ function Hero() {
         t3 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "absolute inset-0 z-0 will-change-transform overflow-hidden",
             style: {
-                transform: "scale(1.255) translateY(-6%) translateX(-2%)",
+                transform: "scale(1.28) translateY(-6%) translateX(-2%)",
                 transformOrigin: "center"
             },
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Spline, {
