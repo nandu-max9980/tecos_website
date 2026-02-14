@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { motion, useInView } from "framer-motion";
 
 const technologies = [
@@ -9,7 +9,7 @@ const technologies = [
     "PostgreSQL", "AWS", "Vercel", "Docker"
 ];
 
-export default function TechStack() {
+const TechStack = memo(() => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -26,8 +26,8 @@ export default function TechStack() {
                             key={tech}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                            transition={{ duration: 0.5, delay: index * 0.1, ease: "backOut" }}
-                            className="px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-gray-300 font-medium hover:bg-white/10 hover:border-cyan-500/50 hover:text-cyan-400 transition-all cursor-default"
+                            transition={{ duration: 0.4, delay: index * 0.05, ease: "backOut" }}
+                            className="px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-gray-300 font-medium hover:bg-white/10 hover:border-cyan-500/50 hover:text-cyan-400 transition-all duration-300 cursor-default will-change-transform"
                         >
                             {tech}
                         </motion.div>
@@ -36,4 +36,7 @@ export default function TechStack() {
             </div>
         </section>
     );
-}
+});
+
+TechStack.displayName = "TechStack";
+export default TechStack;

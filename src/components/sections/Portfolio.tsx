@@ -1,31 +1,36 @@
 "use client";
 
-import { useRef } from "react";
-import ProjectCard from "../ui/ProjectCard"; // Correct relative import
+import { useRef, memo } from "react";
+import ProjectCard from "../ui/ProjectCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function Portfolio() {
+const Portfolio = memo(() => {
     const containerRef = useRef(null);
 
-    useGSAP(() => {
-        gsap.from(".project-card", {
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 80%",
-                end: "bottom 20%",
-                toggleActions: "play none none reverse",
-            },
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out",
-        });
-    }, { scope: containerRef });
+    useGSAP(
+        () => {
+            gsap.from(".project-card", {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none none",
+                    once: true,
+                    fastScrollEnd: true,
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: "power2.out",
+            });
+        },
+        { scope: containerRef }
+    );
 
     return (
         <section id="work" ref={containerRef} className="py-24 relative z-10 bg-black">
@@ -104,4 +109,7 @@ export default function Portfolio() {
             </div>
         </section>
     );
-}
+});
+
+Portfolio.displayName = "Portfolio";
+export default Portfolio;

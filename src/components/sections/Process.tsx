@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -14,30 +14,34 @@ const steps = [
     { id: "04", title: "Deploy", desc: "Global edge network deployment and CI/CD pipelines." },
 ];
 
-export default function Process() {
+const Process = memo(() => {
     const containerRef = useRef<HTMLDivElement>(null!);
     const stepsRef = useRef<HTMLDivElement[]>([]);
 
-    useGSAP(() => {
-        stepsRef.current.forEach((step) => {
-            gsap.fromTo(
-                step,
-                { opacity: 0, y: 80 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: step,
-                        start: "top 85%",
-                        end: "top 40%",
-                        toggleActions: "play none none reverse",
-                    },
-                }
-            );
-        });
-    }, { scope: containerRef });
+    useGSAP(
+        () => {
+            stepsRef.current.forEach((step, index) => {
+                gsap.fromTo(
+                    step,
+                    { opacity: 0, y: 60 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.7,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: step,
+                            start: "top 85%",
+                            end: "top 50%",
+                            toggleActions: "play none none none",
+                            once: true,
+                        },
+                    }
+                );
+            });
+        },
+        { scope: containerRef }
+    );
 
     return (
         <section
@@ -85,4 +89,7 @@ export default function Process() {
             </div>
         </section>
     );
-}
+});
+
+Process.displayName = "Process";
+export default Process;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,33 +8,36 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function Founders() {
+const Founders = memo(() => {
     const containerRef = useRef(null);
     const nanduRef = useRef(null);
     const koushikRef = useRef(null);
 
-    useGSAP(() => {
-        // Parallax Effect
-        gsap.to(nanduRef.current, {
-            y: -50,
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1,
-            },
-        });
-
-        gsap.to(koushikRef.current, {
-            y: -80,
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1,
-            },
-        });
-    }, { scope: containerRef });
+    // Parallax effect disabled for scroll performance
+    // useGSAP(
+    //     () => {
+    //         gsap.to(nanduRef.current, {
+    //             y: -30,
+    //             scrollTrigger: {
+    //                 trigger: containerRef.current,
+    //                 start: "top 80%",
+    //                 end: "bottom top",
+    //                 scrub: 0.5,
+    //             },
+    //         });
+    //
+    //         gsap.to(koushikRef.current, {
+    //             y: -40,
+    //             scrollTrigger: {
+    //                 trigger: containerRef.current,
+    //                 start: "top 80%",
+    //                 end: "bottom top",
+    //                 scrub: 0.5,
+    //             },
+    //         });
+    //     },
+    //     { scope: containerRef }
+    // );
 
     return (
         <section id="about" ref={containerRef} className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden z-20">
@@ -51,7 +54,7 @@ export default function Founders() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
                     {/* Nandu */}
                     <div className="flex flex-col items-center md:items-end text-center md:text-right">
-                        <div ref={nanduRef} className="relative w-full max-w-md aspect-[3/4] rounded-2xl overflow-hidden mb-6 filter grayscale hover:grayscale-0 transition-all duration-700">
+                        <div ref={nanduRef} className="relative w-full max-w-md aspect-[3/4] rounded-2xl overflow-hidden mb-6 filter grayscale hover:grayscale-0 transition-all duration-700 will-change-transform">
                             <Image
                                 src="/images/founder.png"
                                 alt="Nandu Kumar Koribilli"
@@ -64,13 +67,13 @@ export default function Founders() {
                         </div>
                         <p className="text-cyan-400 font-mono tracking-widest text-sm mb-2">FOUNDER</p>
                         <p className="text-gray-400 max-w-sm">
-                            Lead Architect blending chaotic systems with aesthetic perfection. Expert in R3F, Next.js, and scaling digital infrastructures.
+                            Lead architect who weaves controlled chaos into refined, sculptural digital experiences.
                         </p>
                     </div>
 
                     {/* Koushik */}
                     <div className="flex flex-col items-center md:items-start text-center md:text-left pt-12 md:pt-32">
-                        <div ref={koushikRef} className="relative w-full max-w-md aspect-[3/4] rounded-2xl overflow-hidden mb-6 filter grayscale hover:grayscale-0 transition-all duration-700">
+                        <div ref={koushikRef} className="relative w-full max-w-md aspect-[3/4] rounded-2xl overflow-hidden mb-6 filter grayscale hover:grayscale-0 transition-all duration-700 will-change-transform">
                             <Image
                                 src="/images/cofounder.jpeg"
                                 alt="Koushik Katta"
@@ -83,11 +86,14 @@ export default function Founders() {
                         </div>
                         <p className="text-purple-400 font-mono tracking-widest text-sm mb-2">CO-FOUNDER</p>
                         <p className="text-gray-400 max-w-sm">
-                            The Engine. Master of backend scalability, system design, and ensuring 99.99% reliability across all deployments.
+                            Guardian of our data — designing resilient systems and ensuring secure, seamless availability.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
     );
-}
+});
+
+Founders.displayName = "Founders";
+export default Founders;

@@ -6,6 +6,7 @@ import gsap from "gsap";
 
 const Spline = dynamic(() => import('@splinetool/react-spline'), {
     ssr: false,
+    loading: () => <div className="w-full h-screen bg-black" />,
 });
 
 export default function Hero() {
@@ -14,18 +15,16 @@ export default function Hero() {
     const titlePart2 = useRef(null);
     const desc = useRef(null);
 
-    // Hide watermark aggressively
+    // Hide watermark using CSS injection (performance optimized)
     useEffect(() => {
-        const interval = setInterval(() => {
-            const logo = document.querySelector('a[href^="https://spline.design"]');
-            if (logo) {
-                (logo as HTMLElement).style.display = 'none !important'; // Force hide
-                (logo as HTMLElement).style.visibility = 'hidden';
-                (logo as HTMLElement).style.opacity = '0';
-                (logo as HTMLElement).remove(); // Try removing it entirely
+        const style = document.createElement('style');
+        style.textContent = `
+            a[href^="https://spline.design"] { 
+                display: none !important; 
             }
-        }, 100);
-        return () => clearInterval(interval);
+        `;
+        document.head.appendChild(style);
+        return () => style.remove();
     }, []);
 
     useLayoutEffect(() => {
@@ -65,8 +64,11 @@ export default function Hero() {
 
     return (
         <section ref={comp} className="relative h-screen w-full flex items-start justify-center pt-32 md:pt-40 overflow-hidden">
-            {/* Background Spline Scene - Scaled up to make it "bigger" */}
-            <div className="absolute inset-0 z-0 scale-125 transform-gpu">
+            {/* Background Spline Scene - optimized for performance */}
+            <div
+                className="absolute inset-0 z-0 will-change-transform overflow-hidden"
+                style={{ transform: "scale(1.255) translateY(-6%) translateX(-2%)", transformOrigin: "center" }}
+            >
                 <Spline
                     scene="https://prod.spline.design/WtVbd7y5OXJvwloF/scene.splinecode"
                     className="w-full h-full"

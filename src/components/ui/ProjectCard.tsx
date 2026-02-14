@@ -13,22 +13,29 @@ interface ProjectProps {
     link?: string;
 }
 
-export default function ProjectCard({ title, category, image, tags, size = "medium", link }: ProjectProps) {
+const ProjectCard = ({ title, category, image, tags, size = "medium", link }: ProjectProps) => {
     const colSpan = size === "large" ? "md:col-span-2 md:row-span-2" : size === "medium" ? "md:col-span-2" : "md:col-span-1";
 
     return (
         <motion.div
-            whileHover={{ y: -10, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            whileHover={{ y: -5 }}
+            transition={{ type: "tween", duration: 0.2 }}
             className={`relative group overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 ${colSpan} min-h-[300px] h-full cursor-pointer`}
             onClick={() => link && window.open(link, '_blank')}
         >
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
 
-            {/* Background Image Placeholder or Content */}
-            <div className="absolute inset-0 bg-neutral-800 transition-transform duration-700 group-hover:scale-110">
+            {/* Background Image with optimization */}
+            <div className="absolute inset-0 bg-neutral-800 overflow-hidden">
                 {image && (
-                    <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url(${image})` }} />
+                    <Image
+                        src={image}
+                        alt={title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500 will-change-transform"
+                        loading="lazy"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
                 )}
             </div>
 
@@ -52,4 +59,6 @@ export default function ProjectCard({ title, category, image, tags, size = "medi
             </div>
         </motion.div>
     );
-}
+};
+
+export default ProjectCard;

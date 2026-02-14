@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -8,13 +8,23 @@ import { Menu, X } from "lucide-react";
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const throttleRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            if (throttleRef.current) return;
+            
+            throttleRef.current = setTimeout(() => {
+                setIsScrolled(window.scrollY > 50);
+                throttleRef.current = null;
+            }, 16); // ~60fps
         };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (throttleRef.current) clearTimeout(throttleRef.current);
+        };
     }, []);
 
     return (

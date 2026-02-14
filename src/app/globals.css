@@ -24,6 +24,12 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto;
+}
+
+/* Optimize for smooth scroll */
+* {
+  scroll-behavior: auto;
 }
 
 /* Lenis Smooth Scroll */
@@ -46,6 +52,11 @@ html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* Performance optimization: Enable GPU acceleration */
+.will-change-transform {
+  will-change: transform;
 }
 
 /* Utilities */
