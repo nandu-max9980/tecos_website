@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google"; // Keeping Geist for now, fits the tech aesthetic
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CustomCursor from "@/components/ui/CustomCursor";
+import ThemeProvider from "@/components/layout/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +18,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TECOS | Architecting the Future",
-  description: "High-end creative agency specializing in 3D web experiences and next-gen digital solutions.",
+  title: "TECOS | Architecting the Future of Digital Experiences",
+  description:
+    "TECOS is a high-end creative agency merging 3D aesthetics, WebGL shaders, and performant engineering to build mind-blowing digital experiences.",
+  keywords: ["TECOS", "creative agency", "3D web", "WebGL", "Next.js", "GSAP", "Three.js"],
+  openGraph: {
+    title: "TECOS | Architecting the Future",
+    description: "High-end creative agency specializing in 3D web experiences and next-gen digital solutions.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -30,12 +39,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SmoothScroll />
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <ThemeProvider>
+          <SmoothScroll />
+          <CustomCursor />
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
